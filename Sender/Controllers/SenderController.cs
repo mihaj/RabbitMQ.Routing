@@ -7,29 +7,24 @@ namespace RabbitMQ_Sender.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MyController : ControllerBase
+    public class SenderController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<MyController> _logger;
+        private readonly ILogger<SenderController> _logger;
         private readonly Sender _sender;
 
-        public MyController(ILogger<MyController> logger, Sender sender)
+        public SenderController(ILogger<SenderController> logger, Sender sender)
         {
             _logger = logger;
             _sender = sender;
         }
 
         [HttpGet]
-        public async Task Get(string tenantId)
+        public async Task Send(string tenantId)
         {
            await _sender.Publish(new MyMessage()
             {
                 ID = "23423",
-                Name = "Miha Jakovac",
+                Name = "My message",
                 TenantId = tenantId
             });
 
