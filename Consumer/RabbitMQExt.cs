@@ -28,7 +28,7 @@ namespace RabbitMQ_Consumer
                             h.Password("guest");
                         });
 
-                    var queueName = $"{KebabCaseEndpointNameFormatter.Instance.Consumer<MyConsumer>()}-{configuration["TenatId"]}";
+                    var queueName = $"{KebabCaseEndpointNameFormatter.Instance.Consumer<MyConsumer>()}-{configuration["TenantId"]}";
                     
                     configurator.ReceiveEndpoint(queueName, endpoint =>
                     {
@@ -36,7 +36,7 @@ namespace RabbitMQ_Consumer
                         endpoint.Bind<MyMessage>(x =>
                         {
                             x.ExchangeType = ExchangeType.Direct;
-                            x.RoutingKey = configuration["TenatId"];
+                            x.RoutingKey = configuration["TenantId"];
                         });
 
                         endpoint.ConfigureConsumer<MyConsumer>(context);
